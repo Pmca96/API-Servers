@@ -1,0 +1,43 @@
+definitions:
+  models.Users:
+    properties:
+      age:
+        type: integer
+      city:
+        type: string
+      email:
+        type: string
+      firstname:
+        type: string
+      id:
+        type: string
+      lastname:
+        type: number
+      password:
+        type: string
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+paths:
+  /users/GetUsers:
+    get:
+      consumes:
+      - application/json
+      description: Get AllUsers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Users'
+      summary: Get Users
+      tags:
+      - Users
+swagger: "2.0"

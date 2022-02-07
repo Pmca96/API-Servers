@@ -1,0 +1,14 @@
+version: "3.9"
+
+services: 
+  user-server:
+    image: user_server:local
+    environment:
+      - PORT=8080
+    ports:
+      - "8080:8080"
+    deploy:
+      mode: replicated
+      replicas: 1
+
+ 

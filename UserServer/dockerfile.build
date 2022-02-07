@@ -1,0 +1,18 @@
+FROM golang:latest
+
+# Create app directory and epgpub directory
+RUN mkdir /src
+WORKDIR /src
+
+#Bundle app source
+COPY . /src
+
+# Build
+RUN go get .
+RUN go get -u github.com/swaggo/swag/cmd/swag
+RUN swag init
+RUN swag fmt
+RUN go build
+EXPOSE 8080
+
+CMD go run main.go
