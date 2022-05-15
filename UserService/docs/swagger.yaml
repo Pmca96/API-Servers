@@ -1,0 +1,202 @@
+definitions:
+  users.UserName:
+    properties:
+      firstname:
+        type: string
+    type: object
+  users.UserWithoutId:
+    properties:
+      age:
+        type: integer
+      city:
+        type: string
+      email:
+        type: string
+      firstname:
+        type: string
+      lastname:
+        type: number
+      password:
+        type: string
+    type: object
+  users.Users:
+    properties:
+      age:
+        type: integer
+      city:
+        type: string
+      email:
+        type: string
+      firstname:
+        type: string
+      id:
+        type: string
+      lastname:
+        type: number
+      password:
+        type: string
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+paths:
+  /users/AddUser:
+    post:
+      description: Add a user
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/users.UserWithoutId'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/users.Users'
+        "500":
+          description: Internal Server Error
+          schema:
+            type: object
+      summary: Add User
+      tags:
+      - Users
+  /users/DeleteUser:
+    delete:
+      description: Delete User
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            type: object
+      summary: Delete User
+      tags:
+      - Users
+  /users/GetUserByEmail:
+    get:
+      description: Get User By Email
+      parameters:
+      - description: Email
+        in: query
+        name: email
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/users.Users'
+        "500":
+          description: Internal Server Error
+          schema:
+            type: gin
+      summary: Get User By Email
+      tags:
+      - Users
+  /users/GetUserById:
+    get:
+      description: Get User By Id
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/users.Users'
+        "500":
+          description: Internal Server Error
+          schema:
+            type: object
+      summary: Get User By Id
+      tags:
+      - Users
+  /users/GetUsers:
+    get:
+      description: Get AllUsers
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/users.Users'
+        "500":
+          description: Internal Server Error
+          schema:
+            type: object
+      summary: Get Users
+      tags:
+      - Users
+  /users/UpdateName:
+    put:
+      description: Update Name
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: FirstName
+        in: body
+        name: firstname
+        required: true
+        schema:
+          $ref: '#/definitions/users.UserName'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "500":
+          description: Internal Server Error
+          schema:
+            type: object
+      summary: Update Name
+      tags:
+      - Users
+  /users/UpdateUser:
+    put:
+      description: Update User First Name
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: FirstName
+        in: body
+        name: firstname
+        required: true
+        schema:
+          $ref: '#/definitions/users.UserName'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            type: object
+      summary: Update User First Name
+      tags:
+      - Users
+swagger: "2.0"
