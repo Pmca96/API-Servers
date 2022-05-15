@@ -9,13 +9,33 @@ import (
 )
 
 func main() {
-	userService := []Service.Service{
-		LoadBalancer.NewSimpleServer("http://localhost:8091"),
-		LoadBalancer.NewSimpleServer("http://localhost:8092"),
-		LoadBalancer.NewSimpleServer("http://localhost:8093"),
+
+	// service registration
+	userServices := []Service.Service{
+		LoadBalancer.NewSimpleServer("http://localhost:8101"),
+		LoadBalancer.NewSimpleServer("http://localhost:8102"),
+		LoadBalancer.NewSimpleServer("http://localhost:8103"),
+	}
+	messageServices := []Service.Service{
+		LoadBalancer.NewSimpleServer("http://localhost:8111"),
+		LoadBalancer.NewSimpleServer("http://localhost:8112"),
+		LoadBalancer.NewSimpleServer("http://localhost:8113"),
 	}
 
-	loadB := LoadBalancer.NewLoadBalancer("8080", userService)
+	// attatch all and declare service name by order
+	allTypesService := Service.AllServices{
+		Services: [][]Service.Service{
+			userServices,
+			messageServices,
+		},
+		Names: []string {
+			"Users", 
+			"Message",
+		},
+	}
+
+	// init loadBalancer with all microServices
+	loadB := LoadBalancer.NewLoadBalancer("8080", allTypesService)
 	handleRedirect := func(rw http.ResponseWriter, req *http.Request) {
 		loadB.ServeProxy(rw, req)
 	}
